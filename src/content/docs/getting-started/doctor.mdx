@@ -55,7 +55,7 @@ presentation differs.
 ## The summary
 
 ```
-Research Scan 0.5.1
+Research Scan 0.5.2
 ✓ configuration
 ✓ OpenAlex   ✓ Semantic Scholar   ✓ Crossref   ✓ arXiv   ✓ PubMed
 ✓ writable run store
@@ -73,7 +73,7 @@ and fix that, rather than working around it.
 `--verbose` gives every check with its timing, plus the paths in use.
 
 ```
-research-scan doctor — v0.5.1, python 3.13.13
+research-scan doctor — v0.5.2, python 3.13.13
 
 ok     python                 3.13.13
 ok   ! config path            ~/.config/research-scan
@@ -82,13 +82,13 @@ ok     OPENALEX_API_KEY       ****  from user-config
 ok     OPENALEX_MAILTO        ****  from user-config
 ok     S2_API_KEY             ****  from user-config
 ok     NCBI_API_KEY           ****  from user-config
-ok   ! openalex search        4238497 hits, is_retracted readable, cost $0.001  [587 ms]
-ok     openalex psyarxiv-doi  10.31234/osf.io/mky9j indexed as preprint  [506 ms]
-ok   ! s2 search              1 hit(s)  [1142 ms]
-ok   ! s2 references          1 reference(s) — graph expansion available  [536 ms]
-ok     crossref lookup        10.1038/s41586-021-03819-2 resolves  [376 ms]
-ok     arxiv query            parsed a candidate for 'electron' (arXiv:2608.19185)  [58 ms]
-ok     pubmed esearch         esearch returned pmid 42622061  [458 ms]
+ok   ! openalex search        4238497 hits, is_retracted readable, cost $0.001  [1174 ms]
+ok     openalex psyarxiv-doi  10.31234/osf.io/mky9j indexed as preprint  [683 ms]
+ok   ! s2 search              1 hit(s)  [2088 ms]
+ok   ! s2 references          1 reference(s) — graph expansion available  [675 ms]
+ok     crossref lookup        10.1038/s41586-021-03819-2 resolves  [368 ms]
+ok     arxiv query            parsed a candidate for 'electron' (arXiv:2608.20339)  [81 ms]
+ok     pubmed esearch         esearch returned pmid 42625563  [529 ms]
 
 paths:
   config_env: ~/.config/research-scan/.env
@@ -115,7 +115,7 @@ research-scan doctor --json
 
 ```json
 {
-  "version": "0.5.1",
+  "version": "0.5.2",
   "ready": true,
   "providers": {
     "openalex": "ok",
@@ -137,7 +137,7 @@ research-scan doctor --json
       "status": "OK",
       "detail": "4238497 hits, is_retracted readable, cost $0.001",
       "mandatory": true,
-      "duration_ms": 930.1
+      "duration_ms": 1205.4
     }
   ]
 }
@@ -145,6 +145,11 @@ research-scan doctor --json
 
 Abridged: the real output carries every check in `checks`, plus a `keys` object
 with each credential's presence, masked value and origin.
+
+From 0.5.2 this is a stable interface: keys are added, never removed or
+repurposed. Read `ready` for the verdict and `version` for the tool version. The
+`ok` and `tool_version` keys emitted by 0.5.0 and 0.5.1 were undocumented
+duplicates of those two and are gone.
 
 `ready` is the boolean. `providers` maps each checked source to `ok` / `warn` /
 `fail` / `skip` — **`skip` means the probe never ran, which is never the same as
