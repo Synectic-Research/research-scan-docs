@@ -154,9 +154,12 @@ configures the MCP server in one step:
 /plugin install research-scan@synectic
 ```
 
-For Claude Desktop, Cursor, or anything else that speaks MCP,
-`research-scan mcp` talks MCP on stdin and stdout and nothing else — see
-[MCP clients](/integrations/mcp-clients/).
+For Claude Desktop, Cursor, or anything else that speaks MCP, point the client at
+`uvx research-scan mcp`. It talks MCP on stdin and stdout and nothing else, reads
+no token and needs none, and exposes four tools — `scan_start`, `scan_continue`,
+`scan_verify` and `scan_result` — one per decision the pipeline needs from a
+model. See [MCP clients](/integrations/mcp-clients/) for the config block and
+where it goes.
 
 You drive it by asking your agent for a scan, not by running a single command:
 there is no one-shot `scan`, because the pipeline needs a model's judgement
@@ -188,3 +191,7 @@ planned: none offers a personal-key API or a ToS-compatible path.
 
 Research Scan is Apache-2.0 and developed in the open at
 [Synectic-Research/research-scan](https://github.com/Synectic-Research/research-scan).
+Contributions are welcome, with one unusual rule: any change to retrieval,
+expansion, screening caps or selection has to arrive with golden-set eval results.
+Measured, or reverted — a green test suite is not evidence that a scan finds
+better papers. [How to contribute](/contributing/).
