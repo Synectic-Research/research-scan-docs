@@ -6,7 +6,7 @@
     "dark": "/logo.svg",
     "variant": "mark"
   },
-  "description": "Find the 5–10 recent papers with the highest impact on a research question, topic or project.",
+  "description": "Research Scan finds and verifies the 5–10 recent papers that matter most for a research question, project, or decision.",
   "favicon": "/favicon.svg",
   "docsBase": "/",
   "appearance": {
