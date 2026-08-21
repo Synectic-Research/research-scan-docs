@@ -91,3 +91,14 @@ width.
 Pages are dense rather than numerous. A page that would be a stub gets merged
 into its neighbour. Fewer, fuller pages beat a padded tree — a sidebar entry
 that opens onto three sentences is a broken promise.
+
+## Generated files
+
+None of these is edited by hand; edit the source and rebuild.
+
+- The `# >>> generated` block in every page's frontmatter — canonical, `og:` and
+  `twitter:` tags — comes from `scripts/sync-page-meta.py`, run after any title,
+  description or origin change.
+- `sitemap-index.xml` and `sitemap-0.xml` come from `@astrojs/sitemap`.
+- `llms.txt`, `llms-full.txt` and the per-page `.md` routes come from the Lotus
+  theme, with `llms.full` in `theme.config.json` enabling the second.

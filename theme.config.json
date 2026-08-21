@@ -43,6 +43,9 @@
   "search": {
     "provider": "local"
   },
+  "llms": {
+    "full": true
+  },
   "source": {
     "github": "Synectic-Research/research-scan-docs",
     "branch": "main"
