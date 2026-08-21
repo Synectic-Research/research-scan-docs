@@ -6,7 +6,7 @@
     "dark": "/logo.svg",
     "variant": "mark"
   },
-  "description": "Research Scan helps AI agents find, verify and rank academic evidence.",
+  "description": "Find the 5–10 recent papers with the highest impact on a research question, topic or project.",
   "favicon": "/favicon.svg",
   "docsBase": "/",
   "appearance": {
