@@ -1,0 +1,186 @@
+{
+  "$schema": "https://prosefly.dev/schema/lotus.json",
+  "name": "Research Scan",
+  "logo": {
+    "light": "/logo.svg",
+    "dark": "/logo.svg",
+    "variant": "mark"
+  },
+  "description": "Research Scan helps AI agents find, verify and rank academic evidence.",
+  "favicon": "/favicon.svg",
+  "docsBase": "/",
+  "appearance": {
+    "defaultMode": "system"
+  },
+  "siteNav": [
+    {
+      "label": "Docs",
+      "href": "/getting-started/installation/"
+    },
+    {
+      "label": "Concepts",
+      "href": "/concepts/agent-tool-separation/"
+    },
+    {
+      "label": "Reference",
+      "href": "/reference/cli/"
+    },
+    {
+      "label": "PyPI",
+      "href": "https://pypi.org/project/research-scan/",
+      "external": true,
+      "trailingIcon": "lucide:arrow-up-right"
+    }
+  ],
+  "socials": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/Synectic-Research/research-scan",
+      "external": true,
+      "icon": "github"
+    }
+  ],
+  "search": {
+    "provider": "local"
+  },
+  "source": {
+    "github": "Synectic-Research/research-scan-docs",
+    "branch": "main"
+  },
+  "editLink": true,
+  "head": [
+    {
+      "tag": "meta",
+      "attrs": {
+        "property": "og:site_name",
+        "content": "Research Scan"
+      }
+    },
+    {
+      "tag": "meta",
+      "attrs": {
+        "property": "og:type",
+        "content": "website"
+      }
+    },
+    {
+      "tag": "meta",
+      "attrs": {
+        "name": "twitter:card",
+        "content": "summary_large_image"
+      }
+    }
+  ],
+  "docsNav": [
+    {
+      "label": "Getting Started",
+      "icon": "lucide:rocket",
+      "items": [
+        "getting-started/installation",
+        "getting-started/configuration",
+        "getting-started/doctor",
+        "getting-started/first-scan",
+        "getting-started/understanding-results"
+      ]
+    },
+    {
+      "label": "Concepts",
+      "icon": "lucide:lightbulb",
+      "items": [
+        "concepts/evidence-first-research",
+        "concepts/agent-tool-separation",
+        "concepts/artifacts-and-schemas",
+        "concepts/research-scan-as-agent-primitive"
+      ]
+    },
+    {
+      "label": "Architecture",
+      "icon": "lucide:layers",
+      "items": [
+        "architecture/overview",
+        "architecture/cli-engine",
+        "architecture/agent-layer",
+        "architecture/verification"
+      ]
+    },
+    {
+      "label": "Integrations",
+      "icon": "lucide:plug",
+      "items": [
+        "integrations/claude-code",
+        "integrations/mcp-clients",
+        "integrations/custom-agents"
+      ]
+    },
+    {
+      "label": "Reference",
+      "icon": "lucide:book-open",
+      "items": [
+        "reference/cli",
+        "reference/configuration",
+        "reference/mcp-tools",
+        "reference/file-formats"
+      ]
+    },
+    {
+      "label": "Evaluation",
+      "icon": "lucide:target",
+      "items": [
+        "evaluation/measurements",
+        "evaluation/design-decisions"
+      ]
+    },
+    {
+      "label": "Project",
+      "icon": "lucide:users",
+      "items": [
+        "contributing"
+      ]
+    }
+  ],
+  "footer": {
+    "copyright": "Apache-2.0. Synectic Research.",
+    "sections": [
+      {
+        "title": "Project",
+        "links": [
+          {
+            "label": "Source",
+            "href": "https://github.com/Synectic-Research/research-scan",
+            "external": true
+          },
+          {
+            "label": "PyPI",
+            "href": "https://pypi.org/project/research-scan/",
+            "external": true
+          },
+          {
+            "label": "Changelog",
+            "href": "https://github.com/Synectic-Research/research-scan/blob/main/CHANGELOG.md",
+            "external": true
+          }
+        ]
+      },
+      {
+        "title": "Contributing",
+        "links": [
+          {
+            "label": "Contributing guide",
+            "href": "https://github.com/Synectic-Research/research-scan/blob/main/CONTRIBUTING.md",
+            "external": true
+          },
+          {
+            "label": "Security policy",
+            "href": "https://github.com/Synectic-Research/research-scan/blob/main/SECURITY.md",
+            "external": true
+          },
+          {
+            "label": "Code of conduct",
+            "href": "https://github.com/Synectic-Research/research-scan/blob/main/CODE_OF_CONDUCT.md",
+            "external": true
+          }
+        ]
+      }
+    ]
+  }
+}

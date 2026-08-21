@@ -1,0 +1,144 @@
+---
+/**
+ * Diagram 1 — the two-layer architecture.
+ * Colours come from the theme's --pf-* tokens, so light and dark both work
+ * with no second asset and no JavaScript.
+ */
+---
+
+<figure class="dg">
+  <div class="dg-scroll">
+    <svg viewBox="0 0 640 520" role="img" aria-labelledby="tl-title tl-desc" class="dg-svg">
+      <title id="tl-title">The two layers of research-scan</title>
+      <desc id="tl-desc">
+        Layer 1, agent cognition, performs query planning, zero-to-three screening, gap
+        queries and reranking. It communicates with layer 2 through files in a run
+        directory. Layer 2, the research-scan engine, is deterministic and model-free:
+        it retrieves, expands the citation graph, dedupes, counts coverage, shortlists,
+        verifies and emits. The result is a set of evidence objects.
+      </desc>
+
+      <defs>
+        <marker id="tl-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="dg-arrowhead" />
+        </marker>
+      </defs>
+
+      <!-- Layer 1 -->
+      <rect x="20" y="16" width="600" height="132" rx="10" class="dg-band dg-band-agent" />
+      <text x="36" y="46" class="dg-eyebrow">LAYER 1 · AGENT COGNITION</text>
+      <text x="36" y="68" class="dg-sub">Supplied by whatever agent hosts the skill, under written rubrics</text>
+      <g class="dg-chip-group">
+        <rect x="36"  y="86" width="136" height="44" rx="7" class="dg-chip dg-chip-agent" />
+        <text x="104" y="113" class="dg-chip-label">plan queries</text>
+        <rect x="182" y="86" width="136" height="44" rx="7" class="dg-chip dg-chip-agent" />
+        <text x="250" y="113" class="dg-chip-label">screen 0–3</text>
+        <rect x="328" y="86" width="136" height="44" rx="7" class="dg-chip dg-chip-agent" />
+        <text x="396" y="113" class="dg-chip-label">gap queries</text>
+        <rect x="474" y="86" width="136" height="44" rx="7" class="dg-chip dg-chip-agent" />
+        <text x="542" y="113" class="dg-chip-label">rerank</text>
+      </g>
+
+      <!-- The boundary -->
+      <line x1="20" y1="174" x2="620" y2="174" class="dg-boundary" />
+      <line x1="320" y1="148" x2="320" y2="170" class="dg-flow" marker-end="url(#tl-arrow)" />
+      <line x1="320" y1="178" x2="320" y2="212" class="dg-flow" marker-end="url(#tl-arrow)" />
+      <!-- masks the connector where it would otherwise strike through the caption -->
+      <rect x="112" y="185" width="416" height="20" class="dg-label-mask" />
+      <text x="320" y="199" class="dg-boundary-label">files are the interface — a run directory of validated JSON</text>
+
+      <!-- Layer 2 -->
+      <rect x="20" y="214" width="600" height="186" rx="10" class="dg-band dg-band-engine" />
+      <text x="36" y="244" class="dg-eyebrow">LAYER 2 · RESEARCH-SCAN ENGINE</text>
+      <text x="36" y="266" class="dg-sub">Deterministic · model-free · contains no LLM SDK</text>
+      <g class="dg-chip-group">
+        <rect x="36"  y="284" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="104" y="310" class="dg-chip-label">retrieve</text>
+        <rect x="182" y="284" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="250" y="310" class="dg-chip-label">expand</text>
+        <rect x="328" y="284" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="396" y="310" class="dg-chip-label">dedupe</text>
+        <rect x="474" y="284" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="542" y="310" class="dg-chip-label">coverage</text>
+
+        <rect x="36"  y="338" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="104" y="364" class="dg-chip-label">shortlist</text>
+        <rect x="182" y="338" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="250" y="364" class="dg-chip-label">verify</text>
+        <rect x="328" y="338" width="136" height="42" rx="7" class="dg-chip" />
+        <text x="396" y="364" class="dg-chip-label">emit</text>
+      </g>
+
+      <line x1="320" y1="400" x2="320" y2="434" class="dg-flow" marker-end="url(#tl-arrow)" />
+
+      <!-- Output -->
+      <rect x="20" y="438" width="600" height="66" rx="10" class="dg-band dg-band-out" />
+      <text x="320" y="466" class="dg-out-title">EVIDENCE OBJECTS</text>
+      <text x="320" y="488" class="dg-sub dg-center">EvidencePacket JSON + Markdown · every DOI checked against the live record</text>
+    </svg>
+  </div>
+  <figcaption class="dg-caption">
+    The model can change without touching the evidence engine. Files in the run
+    directory are the only contract between the two.
+  </figcaption>
+</figure>
+
+<style>
+  .dg { margin: 1.75rem 0; }
+  .dg-scroll { overflow-x: auto; }
+  .dg-svg {
+    display: block;
+    width: 100%;
+    min-width: 440px;
+    height: auto;
+    font-family: var(--pf-font-sans);
+  }
+  .dg-band { fill: var(--pf-surface); stroke: var(--pf-border-subtle); stroke-width: 1; }
+  .dg-band-agent { fill: var(--pf-accent-soft); stroke: var(--pf-accent); }
+  .dg-band-out { fill: var(--pf-background); stroke: var(--pf-border-muted); }
+  .dg-chip { fill: var(--pf-background); stroke: var(--pf-border-muted); stroke-width: 1; }
+  .dg-chip-agent { fill: var(--pf-surface); stroke: var(--pf-accent); }
+  .dg-chip-label {
+    fill: var(--pf-text-strong);
+    font-size: 16px;
+    font-weight: 500;
+    text-anchor: middle;
+    font-family: var(--pf-font-mono);
+  }
+  .dg-eyebrow {
+    fill: var(--pf-text-strong);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .dg-sub { fill: var(--pf-text-muted); font-size: 15px; }
+  .dg-center { text-anchor: middle; }
+  .dg-out-title {
+    fill: var(--pf-text-strong);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-anchor: middle;
+  }
+  .dg-boundary {
+    stroke: var(--pf-border-muted);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 5;
+  }
+  .dg-label-mask { fill: var(--pf-background); }
+  .dg-boundary-label {
+    fill: var(--pf-text-muted);
+    font-size: 15px;
+    font-style: italic;
+    text-anchor: middle;
+  }
+  .dg-flow { stroke: var(--pf-text-muted); stroke-width: 1.75; }
+  .dg-arrowhead { fill: var(--pf-text-muted); }
+  .dg-caption {
+    margin-top: 0.75rem;
+    color: var(--pf-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+</style>

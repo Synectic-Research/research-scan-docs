@@ -1,0 +1,147 @@
+---
+/**
+ * Diagram 2 — the pipeline, with stage ownership.
+ * Stage names and [A]/[C] ownership follow the repo's own vocabulary:
+ * [A] is a stage the agent performs under a rubric, [C] one the CLI performs
+ * deterministically.
+ */
+---
+
+<figure class="dg">
+  <div class="dg-scroll">
+    <svg viewBox="0 0 640 470" role="img" aria-labelledby="pl-title pl-desc" class="dg-svg">
+      <title id="pl-title">The research-scan pipeline, stage by stage</title>
+      <desc id="pl-desc">
+        Twelve steps in order: init (CLI), plan (agent), retrieve (CLI), screen (agent),
+        expand (CLI), screen again on the expansion items (agent), coverage (CLI), an
+        optional gap round, shortlist (CLI), rerank (agent), verify (CLI) and emit (CLI).
+        Agent stages run under written rubrics; CLI stages are deterministic.
+      </desc>
+
+      <defs>
+        <marker id="pl-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="dg-arrowhead" />
+        </marker>
+      </defs>
+
+      <!-- Row 1 -->
+      <g>
+        <rect x="26"  y="30" width="132" height="58" rx="8" class="dg-node" />
+        <text x="92"  y="55" class="dg-node-name">init</text>
+        <text x="92"  y="75" class="dg-node-owner">[C] CLI</text>
+
+        <rect x="178" y="30" width="132" height="58" rx="8" class="dg-node dg-node-agent" />
+        <text x="244" y="55" class="dg-node-name">plan</text>
+        <text x="244" y="75" class="dg-node-owner">[A] agent</text>
+
+        <rect x="330" y="30" width="132" height="58" rx="8" class="dg-node" />
+        <text x="396" y="55" class="dg-node-name">retrieve</text>
+        <text x="396" y="75" class="dg-node-owner">[C] CLI</text>
+
+        <rect x="482" y="30" width="132" height="58" rx="8" class="dg-node dg-node-agent" />
+        <text x="548" y="55" class="dg-node-name">screen</text>
+        <text x="548" y="75" class="dg-node-owner">[A] 0–3</text>
+      </g>
+      <line x1="158" y1="59" x2="176" y2="59" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <line x1="310" y1="59" x2="328" y2="59" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <line x1="462" y1="59" x2="480" y2="59" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <path d="M 614 59 H 628 V 123 H 92 V 154" class="dg-flow dg-wrap" marker-end="url(#pl-arrow)" />
+
+      <!-- Row 2 -->
+      <g>
+        <rect x="26"  y="160" width="132" height="58" rx="8" class="dg-node" />
+        <text x="92"  y="185" class="dg-node-name">expand</text>
+        <text x="92"  y="205" class="dg-node-owner">[C] CLI</text>
+
+        <rect x="178" y="160" width="132" height="58" rx="8" class="dg-node dg-node-agent" />
+        <text x="244" y="185" class="dg-node-name">screen</text>
+        <text x="244" y="205" class="dg-node-owner">[A] expansion</text>
+
+        <rect x="330" y="160" width="132" height="58" rx="8" class="dg-node" />
+        <text x="396" y="185" class="dg-node-name">coverage</text>
+        <text x="396" y="205" class="dg-node-owner">[C] CLI</text>
+
+        <rect x="482" y="160" width="132" height="58" rx="8" class="dg-node dg-node-optional" />
+        <text x="548" y="185" class="dg-node-name">gap round</text>
+        <text x="548" y="205" class="dg-node-owner">at most once</text>
+      </g>
+      <line x1="158" y1="189" x2="176" y2="189" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <line x1="310" y1="189" x2="328" y2="189" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <line x1="462" y1="189" x2="480" y2="189" class="dg-flow dg-flow-dashed" marker-end="url(#pl-arrow)" />
+      <path d="M 614 189 H 628 V 253 H 92 V 284" class="dg-flow dg-wrap" marker-end="url(#pl-arrow)" />
+
+      <!-- Row 3 -->
+      <g>
+        <rect x="26"  y="290" width="132" height="58" rx="8" class="dg-node" />
+        <text x="92"  y="315" class="dg-node-name">shortlist</text>
+        <text x="92"  y="335" class="dg-node-owner">[C] CLI</text>
+
+        <rect x="178" y="290" width="132" height="58" rx="8" class="dg-node dg-node-agent" />
+        <text x="244" y="315" class="dg-node-name">rerank</text>
+        <text x="244" y="335" class="dg-node-owner">[A] agent</text>
+
+        <rect x="330" y="290" width="132" height="58" rx="8" class="dg-node" />
+        <text x="396" y="315" class="dg-node-name">verify</text>
+        <text x="396" y="335" class="dg-node-owner">[C] every DOI</text>
+
+        <rect x="482" y="290" width="132" height="58" rx="8" class="dg-node dg-node-out" />
+        <text x="548" y="315" class="dg-node-name">emit</text>
+        <text x="548" y="335" class="dg-node-owner">[C] CLI</text>
+      </g>
+      <line x1="158" y1="319" x2="176" y2="319" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <line x1="310" y1="319" x2="328" y2="319" class="dg-flow" marker-end="url(#pl-arrow)" />
+      <line x1="462" y1="319" x2="480" y2="319" class="dg-flow" marker-end="url(#pl-arrow)" />
+
+      <!-- Legend -->
+      <g>
+        <rect x="26" y="392" width="18" height="18" rx="4" class="dg-node dg-node-agent" />
+        <text x="52" y="406" class="dg-legend">[A] agent stage, under a written rubric</text>
+        <rect x="330" y="392" width="18" height="18" rx="4" class="dg-node" />
+        <text x="356" y="406" class="dg-legend">[C] deterministic CLI stage</text>
+        <rect x="26" y="424" width="18" height="18" rx="4" class="dg-node dg-node-optional" />
+        <text x="52" y="438" class="dg-legend">conditional — runs only when coverage is thin</text>
+      </g>
+    </svg>
+  </div>
+  <figcaption class="dg-caption">
+    Every stage is idempotent and re-runnable: change an input file, re-run from the
+    stage it affects. The gap round only adds — round one's papers and scores are
+    never discarded.
+  </figcaption>
+</figure>
+
+<style>
+  .dg { margin: 1.75rem 0; }
+  .dg-scroll { overflow-x: auto; }
+  .dg-svg {
+    display: block;
+    width: 100%;
+    min-width: 440px;
+    height: auto;
+    font-family: var(--pf-font-sans);
+  }
+  .dg-node { fill: var(--pf-surface); stroke: var(--pf-border-muted); stroke-width: 1.25; }
+  .dg-node-agent { fill: var(--pf-accent-soft); stroke: var(--pf-accent); }
+  .dg-node-optional { fill: var(--pf-background); stroke: var(--pf-border-muted); stroke-dasharray: 5 4; }
+  .dg-node-out { fill: var(--pf-surface); stroke: var(--pf-text-muted); stroke-width: 2; }
+  .dg-node-name {
+    fill: var(--pf-text-strong);
+    font-size: 17px;
+    font-weight: 600;
+    text-anchor: middle;
+    font-family: var(--pf-font-mono);
+  }
+  .dg-node-owner { fill: var(--pf-text-muted); font-size: 13.5px; text-anchor: middle; }
+  .dg-flow { stroke: var(--pf-text-muted); stroke-width: 1.75; fill: none; }
+  .dg-flow-dashed { stroke-dasharray: 5 4; }
+  .dg-wrap { stroke-width: 1.5; }
+  .dg-arrowhead { fill: var(--pf-text-muted); }
+  .dg-legend { fill: var(--pf-text-muted); font-size: 15px; }
+  .dg-caption {
+    margin-top: 0.75rem;
+    color: var(--pf-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+</style>

@@ -1,0 +1,138 @@
+---
+/**
+ * Diagram 3 — the MCP surface.
+ * Any client that speaks MCP launches `research-scan mcp` over stdio and reaches
+ * the same pipeline, the same artifacts and the same verification.
+ */
+---
+
+<figure class="dg">
+  <div class="dg-scroll">
+    <svg viewBox="0 0 640 510" role="img" aria-labelledby="mcp-title mcp-desc" class="dg-svg">
+      <title id="mcp-title">How MCP clients reach the research-scan pipeline</title>
+      <desc id="mcp-desc">
+        Claude Code, Claude Desktop, Cursor and custom agents all launch
+        research-scan mcp over stdio. The server exposes four tools — scan_start,
+        scan_continue, scan_verify and scan_result — one per decision the pipeline
+        needs from a model. Behind them runs the same pipeline, writing the same
+        run-directory artifacts with the same DOI verification.
+      </desc>
+
+      <defs>
+        <marker id="mcp-arrow" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="dg-arrowhead" />
+        </marker>
+      </defs>
+
+      <!-- Clients -->
+      <g>
+        <rect x="26"  y="16" width="138" height="52" rx="8" class="dg-client" />
+        <text x="95"  y="47" class="dg-client-label">Claude Code</text>
+        <rect x="176" y="16" width="138" height="52" rx="8" class="dg-client" />
+        <text x="245" y="47" class="dg-client-label">Claude Desktop</text>
+        <rect x="326" y="16" width="138" height="52" rx="8" class="dg-client" />
+        <text x="395" y="47" class="dg-client-label">Cursor</text>
+        <rect x="476" y="16" width="138" height="52" rx="8" class="dg-client" />
+        <text x="545" y="47" class="dg-client-label">Any MCP client</text>
+      </g>
+
+      <!-- Converge onto one bus -->
+      <line x1="95"  y1="68" x2="95"  y2="92" class="dg-flow" />
+      <line x1="245" y1="68" x2="245" y2="92" class="dg-flow" />
+      <line x1="395" y1="68" x2="395" y2="92" class="dg-flow" />
+      <line x1="545" y1="68" x2="545" y2="92" class="dg-flow" />
+      <line x1="95"  y1="92" x2="545" y2="92" class="dg-flow" />
+      <line x1="320" y1="92" x2="320" y2="114" class="dg-flow" marker-end="url(#mcp-arrow)" />
+
+      <!-- The MCP server -->
+      <rect x="26" y="118" width="588" height="132" rx="10" class="dg-band dg-band-accent" />
+      <text x="320" y="148" class="dg-server-name">research-scan mcp</text>
+      <text x="320" y="170" class="dg-sub dg-center">stdio · your client launches it · reads no token and needs none</text>
+      <g>
+        <rect x="41"  y="186" width="132" height="44" rx="7" class="dg-tool" />
+        <text x="107" y="213" class="dg-tool-label">scan_start</text>
+        <rect x="183" y="186" width="132" height="44" rx="7" class="dg-tool" />
+        <text x="249" y="213" class="dg-tool-label">scan_continue</text>
+        <rect x="325" y="186" width="132" height="44" rx="7" class="dg-tool" />
+        <text x="391" y="213" class="dg-tool-label">scan_verify</text>
+        <rect x="467" y="186" width="132" height="44" rx="7" class="dg-tool" />
+        <text x="533" y="213" class="dg-tool-label">scan_result</text>
+      </g>
+
+      <line x1="320" y1="250" x2="320" y2="288" class="dg-flow" marker-end="url(#mcp-arrow)" />
+
+      <!-- The pipeline -->
+      <rect x="26" y="292" width="588" height="96" rx="10" class="dg-band" />
+      <text x="320" y="320" class="dg-eyebrow dg-center">THE SAME PIPELINE</text>
+      <text x="320" y="344" class="dg-mono-line">retrieve · expand · dedupe · coverage · shortlist · verify · emit</text>
+      <text x="320" y="368" class="dg-sub dg-center">the same run-directory artifacts, the same DOI verification</text>
+
+      <line x1="320" y1="388" x2="320" y2="424" class="dg-flow" marker-end="url(#mcp-arrow)" />
+
+      <!-- Output -->
+      <rect x="26" y="428" width="588" height="64" rx="10" class="dg-band dg-band-out" />
+      <text x="320" y="455" class="dg-eyebrow dg-center">EVIDENCE OBJECTS</text>
+      <text x="320" y="477" class="dg-sub dg-center">EvidencePacket JSON + Markdown, identical to a skill-driven run</text>
+    </svg>
+  </div>
+  <figcaption class="dg-caption">
+    Four tools, one per decision the pipeline needs from a model. They are not a chat
+    endpoint over the pipeline — the client's model supplies exactly the cognition the
+    skill would, in the same stage order.
+  </figcaption>
+</figure>
+
+<style>
+  .dg { margin: 1.75rem 0; }
+  .dg-scroll { overflow-x: auto; }
+  .dg-svg {
+    display: block;
+    width: 100%;
+    min-width: 440px;
+    height: auto;
+    font-family: var(--pf-font-sans);
+  }
+  .dg-client { fill: var(--pf-background); stroke: var(--pf-border-muted); stroke-width: 1.25; }
+  .dg-client-label { fill: var(--pf-text-strong); font-size: 15px; font-weight: 500; text-anchor: middle; }
+  .dg-band { fill: var(--pf-surface); stroke: var(--pf-border-subtle); stroke-width: 1; }
+  .dg-band-accent { fill: var(--pf-accent-soft); stroke: var(--pf-accent); }
+  .dg-band-out { fill: var(--pf-background); stroke: var(--pf-border-muted); }
+  .dg-tool { fill: var(--pf-surface); stroke: var(--pf-accent); stroke-width: 1.25; }
+  .dg-tool-label {
+    fill: var(--pf-text-strong);
+    font-size: 15px;
+    font-weight: 500;
+    text-anchor: middle;
+    font-family: var(--pf-font-mono);
+  }
+  .dg-server-name {
+    fill: var(--pf-text-strong);
+    font-size: 19px;
+    font-weight: 600;
+    text-anchor: middle;
+    font-family: var(--pf-font-mono);
+  }
+  .dg-mono-line {
+    fill: var(--pf-text);
+    font-size: 15px;
+    text-anchor: middle;
+    font-family: var(--pf-font-mono);
+  }
+  .dg-eyebrow {
+    fill: var(--pf-text-strong);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .dg-sub { fill: var(--pf-text-muted); font-size: 15px; }
+  .dg-center { text-anchor: middle; }
+  .dg-flow { stroke: var(--pf-text-muted); stroke-width: 1.75; fill: none; }
+  .dg-arrowhead { fill: var(--pf-text-muted); }
+  .dg-caption {
+    margin-top: 0.75rem;
+    color: var(--pf-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+</style>

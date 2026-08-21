@@ -1,0 +1,24 @@
+{
+  "name": "research-scan-docs",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/mdx": "latest",
+    "@prosefly/astro-components": "0.5.0",
+    "@prosefly/astro-theme-lotus": "0.6.2",
+    "@tailwindcss/vite": "latest",
+    "astro": "^7.2.0",
+    "tailwindcss": "latest",
+    "typescript": "^6.0.3"
+  },
+  "private": true,
+  "description": "Documentation site for Research Scan.",
+  "license": "Apache-2.0"
+}
