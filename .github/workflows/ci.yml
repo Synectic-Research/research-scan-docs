@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Links, metadata, sitemap and origin hygiene
+        run: python3 scripts/check-site.py
+
+      # Privacy leak only: this repo is public and must not name the private
+      # deployment path. Nothing else belongs in this pattern.
+      - name: Boundary sweep
+        run: |
+          if grep -riEn 'cloudflare|trycloudflare|tunnel|launchd|mcp\.synectic|path.?secret|RESEARCH_SCAN_MCP_TOKEN' \
+               src public scripts theme.config.json astro.config.ts dist *.md; then
+            echo "::error::Private-deployment term found above. Remove it; this repo is public."
+            exit 1
+          fi
+
+      - name: Metadata drift
+        run: |
+          python3 scripts/sync-page-meta.py
+          if ! git diff --exit-code src/content; then
+            echo "::error::Page metadata is stale. Run: python3 scripts/sync-page-meta.py — then commit src/content."
+            exit 1
+          fi
