@@ -1,80 +1,58 @@
-# Custom domain — pending
+# Domain
 
-The documentation site is currently served from its Vercel URL:
+The production hostname configured for this deployment is
+**researchscan.synectic.org**.
 
-**https://research-scan-docs.vercel.app** — live.
+## DNS
 
-`docs.synectic.org` is the **planned** hostname. It is **not live**, not
-configured, and not pointed anywhere. Nothing should link to it or cite it as an
-address until the steps below are complete and verified.
+`researchscan` is a `CNAME` at the DNS provider serving `synectic.org`, pointing
+at the target Vercel assigns to this project. Proxy status is **DNS-only** — the
+record resolves straight to Vercel, which terminates TLS and issues the
+certificate for the hostname.
 
-## Steps to move to docs.synectic.org
+The exact target value is whatever the Vercel project's *Settings → Domains*
+pane displays; Vercel is authoritative for its own infrastructure, so that pane
+is the place to read it rather than this file.
 
-### 1. Add the domain in Vercel
+## The canonical origin
 
-Vercel project **research-scan-docs**, team **Innovation Practice**:
+Canonical URLs and every absolute OpenGraph URL derive from a single value:
+`site` in **`astro.config.ts`**.
 
-*Project → Settings → Domains → Add* → `docs.synectic.org`
-
-Vercel will show the DNS record it expects and will report the domain as
-*Invalid Configuration* until that record resolves. That is normal.
-
-### 2. Add the DNS record
-
-At whichever DNS provider serves `synectic.org`, add the record Vercel asks for —
-for a subdomain this is normally:
-
-| Type | Name | Value |
-|---|---|---|
-| `CNAME` | `docs` | `cname.vercel-dns.com` |
-
-Use the exact target Vercel displays rather than the one above if the two differ;
-Vercel is authoritative for its own infrastructure.
-
-Propagation is usually minutes. Vercel issues the TLS certificate automatically
-once the record resolves.
-
-### 3. Update the canonical origin
-
-Canonical URLs and absolute OpenGraph URLs are derived from a single value.
-Change it in **`astro.config.ts`**:
-
-```diff
--  site: 'https://research-scan-docs.vercel.app',
-+  site: 'https://docs.synectic.org',
+```ts
+site: 'https://researchscan.synectic.org',
 ```
 
-Then regenerate the per-page metadata and rebuild:
+`scripts/sync-page-meta.py` reads that value, so nothing else in the repo writes
+the hostname. After changing it, regenerate the per-page metadata:
 
 ```bash
 python3 scripts/sync-page-meta.py
-npm run build
 ```
 
-`scripts/sync-page-meta.py` reads `site` from `astro.config.ts`, so this is the
-only place the origin is written. Committing the regenerated pages updates the
-canonical tag, `og:url` and `og:image` on all 24 pages at once.
+That rewrites the generated block on all 24 pages — canonical, `og:url` and
+`og:image` — in one pass. `scripts/check-site.py` fails the build if any page's
+canonical, `og:url` or `og:image` disagrees with `site`, and CI reruns the sync
+script and fails on a diff, so a stale block cannot reach production.
 
-There is a `TODO(domain)` marker on that line in `astro.config.ts`.
+`public/robots.txt` is the one static file that repeats the hostname, in its
+`Sitemap:` line. CI checks that line against `site`.
 
-### 4. Decide what the old URL does
+## The Vercel URL
 
-Vercel keeps serving `research-scan-docs.vercel.app` after a custom domain is
-added. Once `docs.synectic.org` is live, set the custom domain as the project's
-primary domain so the Vercel URL redirects to it, rather than leaving two
-addresses serving identical content with the same canonical tag.
+`research-scan-docs.vercel.app` still resolves. `vercel.json` redirects it,
+permanently (308), to the same path on `researchscan.synectic.org`, so the two
+hostnames never serve identical content under one canonical tag. The redirect is
+host-scoped: preview deployments have their own hostnames and are unaffected.
 
-### 5. Verify
+## The main repo
+
+The main repo's README links to this documentation site. That link carries the
+same hostname, so the two never disagree about where the docs live.
+
+## Verify
 
 ```bash
-curl -sI https://docs.synectic.org/ | head -1
-curl -s https://docs.synectic.org/ | grep -o '<link rel="canonical"[^>]*>'
-curl -sI https://docs.synectic.org/reference/cli/ | head -1
+curl -sI https://researchscan.synectic.org/ | head -1
+curl -s  https://researchscan.synectic.org/ | grep -o '<link rel="canonical"[^>]*>'
 ```
-
-Expect `200` on both pages and a canonical pointing at `docs.synectic.org`.
-
-### 6. Update the main repo
-
-The main repo's README links to the documentation site. Update that link in the
-same change, so the two never disagree about where the docs live.

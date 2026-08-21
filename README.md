@@ -27,10 +27,10 @@ sidebar are configured in `theme.config.json`.
 
 ## Domain
 
-The site is live at **https://research-scan-docs.vercel.app**.
+The site is live at **https://researchscan.synectic.org**.
 
-`docs.synectic.org` is planned but **not live** — see [`DOMAIN.md`](DOMAIN.md) for
-the steps and the single place the origin is configured.
+See [`DOMAIN.md`](DOMAIN.md) for the DNS record and the single place the origin
+is configured.
 
 ## License
 
