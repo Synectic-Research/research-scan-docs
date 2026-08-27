@@ -74,7 +74,9 @@ The same block works in every client. Only the file it goes in changes.
 `uvx` resolves and caches the package on first use, so there is no install step to
 sequence — the first launch is slower and the rest are not. If you would rather
 pin an installed copy, `uv tool install research-scan` and then use
-`research-scan` as the command with `["mcp"]` as the args.
+`research-scan` as the command with `["mcp"]` as the args. An installed copy stays
+at the version it was installed at, so run `uv tool upgrade research-scan` when a
+new release lands; `uvx` clients pick one up on their own.
 
 ## Confirm the server can start
 
@@ -83,7 +85,7 @@ research-scan version
 ```
 
 ```
-research-scan 0.5.2
+research-scan 0.6.0
 python       3.13.13
 platform     macOS-14.2.1-arm64-arm-64bit-Mach-O
 mcp          enabled

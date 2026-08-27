@@ -59,6 +59,17 @@ MCP configuration further on. `uv tool install` is the choice once you want
 Both routes install the same package. There are no optional extras to choose: the
 MCP server ships in the core dependencies.
 
+**Already have it installed?** `uvx` picks up a new release on its own, but a
+persistent install does not — it keeps serving the version it was installed at.
+Upgrade it explicitly:
+
+```bash
+uv tool upgrade research-scan     # existing `uv tool install` users
+```
+
+If that reports nothing to upgrade, the install was pinned to an exact version;
+`uv tool install research-scan@latest` moves it forward.
+
 ## Confirm the install
 
 `version` reports more than a number — it reports what this particular install can
@@ -69,7 +80,7 @@ research-scan version
 ```
 
 ```
-research-scan 0.5.2
+research-scan 0.6.0
 python       3.13.13
 platform     macOS-14.2.1-arm64-arm-64bit-Mach-O
 mcp          enabled
@@ -90,7 +101,7 @@ research-scan version --json
 
 ```json
 {
-  "version": "0.5.2",
+  "version": "0.6.0",
   "python": "3.13.13",
   "platform": "macOS-14.2.1-arm64-arm-64bit-Mach-O",
   "mcp": "enabled"
@@ -105,7 +116,7 @@ research-scan --version
 ```
 
 ```
-0.5.2
+0.6.0
 ```
 
 ## There is no one-shot `scan` command

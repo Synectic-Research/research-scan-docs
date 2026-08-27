@@ -46,6 +46,16 @@ Research Scan is Apache-2.0 and developed in the open at
 The project has one unusual rule — the eval gate — and it is the one worth reading
 before you write code.
 
+## The experimental drivers
+
+The repository carries experimental reference implementations of a cognition engine
+— code that produces the judgements a scan needs, for anyone who wants one driven
+by something other than a hosting agent. They live in
+[`drivers/`](https://github.com/Synectic-Research/research-scan/blob/v0.6.0/drivers/README.md)
+and are repository-only: nothing there is installed by the package, imported by it,
+or shipped in the sdist or wheel. They inform a forthcoming provider-neutral engine
+protocol, which does not ship in this release.
+
 ## Development setup
 
 ```bash

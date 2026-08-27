@@ -141,6 +141,26 @@ straight through — a 2004 paper reads as context, not as the answer.
 citation hops still covers its criterion once. Counting origins would make a
 well-connected paper look like broad coverage.
 
+**The shortlist cut is a total order.** `shortlist` orders candidates by screen
+score, then the number of distinct sub-criteria screening attributed to the paper,
+then how many discovery paths found it, then the best position any source gave it,
+then publication date, then `cid`:
+
+```
+score DESC, criteria_supported DESC, origin_count DESC,
+best_retrieval_rank ASC, date DESC, cid ASC
+```
+
+Every tier is evidence the pipeline already produced — there are no weights to
+tune. The final `cid` tier makes the order total, so the same pool always cuts the
+same way regardless of the order candidates were retrieved in.
+
+This changed in 0.6.0, and it was a correctness fix rather than tuning. The
+previous key was `score DESC, origin_count DESC, date DESC`, and in a real pool the
+first two tiers tie across dozens of papers — so date decided, and the cut behaved
+as a recency filter, dropping central papers for being older than their band. The
+two tiers now sitting ahead of date are relevance evidence, not recency.
+
 ## Related
 
 - [Verification](/architecture/verification/) — the stage that checks the record.

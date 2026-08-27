@@ -176,6 +176,18 @@ The corrected table above is the one that stands. It is also why `manifest.json`
 counts per-source failures at all: a degraded run that looks like a good number is
 the failure mode that rule exists to catch.
 
+## Screening in controlled replay
+
+In controlled replay, stateless parallel screening reduced the screening stage from
+979 seconds to 73 seconds and from $3.00 to $0.76. The implementation remains
+experimental while end-to-end golden non-inferiority is validated.
+
+This is a replay of one stage against recorded inputs, not an end-to-end scan
+result, and nothing about it is a default: the shipped path is unchanged. The full
+record, including what was measured and what was only projected, is in
+[`docs/measurements.md`](https://github.com/Synectic-Research/research-scan/blob/b79bdbac071994987b3baa4a914004767eb2a931/docs/measurements.md)
+at the released commit.
+
 ## Transport evidence
 
 Two end-to-end scans driven over MCP: 23 and 36 tool calls, zero timeouts, zero

@@ -55,7 +55,7 @@ presentation differs.
 ## The summary
 
 ```
-Research Scan 0.5.2
+Research Scan 0.6.0
 ✓ configuration
 ✓ OpenAlex   ✓ Semantic Scholar   ✓ Crossref   ✓ arXiv   ✓ PubMed
 ✓ writable run store
@@ -65,6 +65,11 @@ Ready.
 Progress lines go to stderr; only this block is stdout. `--quiet` silences the
 stderr log.
 
+One row to read carefully: the PubMed check probes that the E-utilities endpoint
+answers, and a tick there means exactly that. The PubMed *source* is routed for
+`biomed` but [not built yet](/architecture/overview/#sources-and-routing) — a green
+PubMed row is not a claim that a scan retrieves from it.
+
 **Exit 0 means go. Exit 3 means a mandatory check failed** — read the check name
 and fix that, rather than working around it.
 
@@ -73,7 +78,7 @@ and fix that, rather than working around it.
 `--verbose` gives every check with its timing, plus the paths in use.
 
 ```
-research-scan doctor — v0.5.2, python 3.13.13
+research-scan doctor — v0.6.0, python 3.13.13
 
 ok     python                 3.13.13
 ok   ! config path            ~/.config/research-scan
@@ -115,7 +120,7 @@ research-scan doctor --json
 
 ```json
 {
-  "version": "0.5.2",
+  "version": "0.6.0",
   "ready": true,
   "providers": {
     "openalex": "ok",
