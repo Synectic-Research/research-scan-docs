@@ -171,8 +171,13 @@ passing.** `checks` carries every individual result.
 **A missing `OPENALEX_API_KEY` is a `FAIL`**, and the OpenAlex probes are then
 reported as `SKIP` rather than as passing, because they were never run.
 
-**A missing `S2_API_KEY` or `NCBI_API_KEY` is only a `WARN`.** The scan still
-runs, throttled.
+**A missing `S2_API_KEY` is only a `WARN`.** Semantic Scholar search and
+citation-graph expansion still run, throttled to roughly a third of the rate.
+
+**A missing `NCBI_API_KEY` is only a `WARN`, and it costs a scan nothing.** The
+key raises the rate limit on NCBI E-utilities requests, and the only one the
+package makes is the `pubmed esearch` probe above — PubMed retrieval is not
+built, so no scan is throttled by its absence.
 
 **`arxiv HTTP 429`** is a `WARN`, not a failure. arXiv rate-limits aggressively —
 the client already holds to one request every three seconds — and returns 429

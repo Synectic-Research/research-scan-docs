@@ -61,10 +61,18 @@ included — is left exactly as it was.
 | `OPENALEX_API_KEY` | OpenAlex, the primary source. **Required**; `doctor` exits 3 without it. |
 | `OPENALEX_MAILTO` | Strongly recommended. Raises OpenAlex to 5 req/s and joins the Crossref polite pool. |
 | `S2_API_KEY` | Recommended. Semantic Scholar search and citation-graph expansion work without it, throttled to roughly a third of the rate; `doctor` warns. |
-| `NCBI_API_KEY` | Optional. PubMed only: 10 req/s instead of 3. |
+| `NCBI_API_KEY` | Optional, and it adds no papers. It raises this client's NCBI E-utilities limit from 3 req/s to 10 req/s — but PubMed has no retrieval adapter, so the only request that currently uses it is `doctor`'s endpoint probe. |
 
-Only `OPENALEX_API_KEY` is required. Everything else raises a rate limit or adds a
-source, and the tool tells you which you are missing rather than failing quietly.
+Only `OPENALEX_API_KEY` is required. The others raise a rate limit, and the tool
+tells you which you are missing rather than failing quietly.
+
+**`NCBI_API_KEY` does not add a source.** PubMed is routed for `biomed` but is
+[not built](/architecture/overview/#sources-and-routing) — no retrieval adapter
+exists — so a biomed scan runs on OpenAlex and Semantic Scholar and records
+PubMed as unavailable in `manifest.json` whether or not you set the key. Setting
+it changes the rate limit on NCBI requests, and today the only one is `doctor`'s
+endpoint probe. It is documented because the package reads it, not because it
+adds results.
 
 ## In a script or a container
 

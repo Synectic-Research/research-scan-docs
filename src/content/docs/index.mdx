@@ -75,10 +75,11 @@ criterion, shortlists, verifies every DOI against the live record, applies the
 selection rules and renders the result. It contains no LLM SDK and makes no
 judgement about a paper.
 
-**The agent supplies the cognition.** Planning the queries, scoring each candidate
-0–3, writing gap queries when coverage is thin, and reranking the shortlist are
-all model decisions. The skill packages the rubrics they are made against, as
-plain Markdown; whatever agent hosts it executes them.
+**The hosting agent supplies the cognition.** Planning the queries, scoring each
+candidate 0–3, writing gap queries when coverage is thin, and reranking the
+shortlist are all model decisions, and in the supported installed path the agent
+hosting the skill makes every one of them. The skill packages the rubrics they
+are made against, as plain Markdown; whatever agent hosts it executes them.
 
 Files are the interface between the two halves — the filesystem is the protocol
 boundary between reasoning and execution, not a storage detail. That is what lets
@@ -125,8 +126,9 @@ expensive. [Measured recall for each](/evaluation/measurements/).
 
 Stated as category differences, not as claims about any particular product.
 
-- **No embedded model.** The package declares no LLM SDK and makes no model calls.
-  Every judgement belongs to the hosting agent.
+- **No embedded model.** The installed package declares no LLM SDK and makes no
+  model calls. In the supported installed path, every judgement belongs to the
+  hosting agent.
 - **No vendor lock-in.** The interface is files in a run directory, so any agent
   that can read and write JSON can drive the pipeline.
 - **Auditable artifacts.** Every drop — retracted, excluded, type-filtered,

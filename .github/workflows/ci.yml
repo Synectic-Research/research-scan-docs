@@ -24,6 +24,9 @@ jobs:
       - name: Links, metadata, sitemap and origin hygiene
         run: python3 scripts/check-site.py
 
+      - name: Release facts — versions, transcripts, measurement scope
+        run: python3 scripts/check-versions.py
+
       # Privacy leak only: this repo is public and must not name the private
       # deployment path. Nothing else belongs in this pattern.
       - name: Boundary sweep

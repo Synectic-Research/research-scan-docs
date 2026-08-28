@@ -147,14 +147,21 @@ one more.
 
 ## Cost and wall clock
 
+Every figure in this section was measured end to end (`counts.wall_clock_s`,
+`init` through `emit`) on the supported path: a hosting agent driving the pipeline
+conversationally. None of it is comparable with the
+[stateless screening replay](#screening-in-controlled-replay) below, which replays
+a single stage of a different run against recorded inputs.
+
 | Pool | Screening batches | Wall clock |
 |---|---|---|
 | ~675 candidates | ~27 | **37 min** |
 | ~250 candidates | ~10 | **22 min** |
 | ~120 candidates | 5 | **19 min** |
 
-The one end-to-end run with a recorded wall clock took 2,230 seconds for a
-593-paper pool — roughly 3.8 seconds per candidate screened.
+The one end-to-end run with a recorded `wall_clock_s` is the acceptance run
+`2026-08-19-topic2b`: 2,230 seconds for a 593-paper pool, or roughly 3.8 seconds
+per candidate screened.
 
 OpenAlex bills about $0.008 a run at every profile. **Agent tokens are the real
 cost**, and they do not fall as fast as the pool: the 120-candidate run still cost
@@ -182,9 +189,14 @@ In controlled replay, stateless parallel screening reduced the screening stage f
 979 seconds to 73 seconds and from $3.00 to $0.76. The implementation remains
 experimental while end-to-end golden non-inferiority is validated.
 
-This is a replay of one stage against recorded inputs, not an end-to-end scan
-result, and nothing about it is a default: the shipped path is unchanged. The full
-record, including what was measured and what was only projected, is in
+The baseline it improves on is the screening stage of one recorded conversational
+run, `2026-08-26-claim-grounding-sonnet` — a different run from the acceptance run
+in [Cost and wall clock](#cost-and-wall-clock) above, so the two sets of figures
+cannot be combined into an end-to-end speedup. This is a replay of one stage
+against recorded inputs, not an end-to-end scan result, and nothing about it is a
+default: the shipped path is unchanged. Screening agreement with the baseline fell
+as well as cost, which is why non-inferiority is still open. The full record,
+including what was measured and what was only projected, is in
 [`docs/measurements.md`](https://github.com/Synectic-Research/research-scan/blob/b79bdbac071994987b3baa4a914004767eb2a931/docs/measurements.md)
 at the released commit.
 

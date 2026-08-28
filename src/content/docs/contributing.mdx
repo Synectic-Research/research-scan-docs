@@ -48,13 +48,18 @@ before you write code.
 
 ## The experimental drivers
 
-The repository carries experimental reference implementations of a cognition engine
-— code that produces the judgements a scan needs, for anyone who wants one driven
-by something other than a hosting agent. They live in
-[`drivers/`](https://github.com/Synectic-Research/research-scan/blob/v0.6.0/drivers/README.md)
-and are repository-only: nothing there is installed by the package, imported by it,
-or shipped in the sdist or wheel. They inform a forthcoming provider-neutral engine
-protocol, which does not ship in this release.
+The repository carries experimental reference implementations of code that
+produces the judgements a scan needs, for anyone who wants one driven by something
+other than a hosting agent. They live in
+[`drivers/`](https://github.com/Synectic-Research/research-scan/blob/main/drivers/README.md)
+and are repository-only: nothing there is installed by the package, imported by
+it, or shipped in the sdist or wheel.
+
+What they are and are not is covered once, on
+[the architecture overview](/architecture/overview/#the-stages); the measured
+replay and its limits are on
+[Measurements](/evaluation/measurements/#screening-in-controlled-replay). This
+section is the pointer to the implementation.
 
 ## Development setup
 

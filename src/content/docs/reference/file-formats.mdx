@@ -54,6 +54,10 @@ research-scan schema --md                    # every model, as Markdown
 
 `research/scans/<YYYY-MM-DD>-<slug>/`
 
+The `agent` rows below name the owner in the supported installed path — the
+hosting agent that drives the scan. The ownership rule itself is about the
+boundary: whatever writes those files, the CLI never does.
+
 | File | Owner | What it is |
 |---|---|---|
 | `brief.md` | input | The brief, or the question. |
@@ -130,7 +134,9 @@ then a normalised title and year.
 
 **`domain`** — `behavioral`, `cs`, `biomed`, `general`.
 
-**`source`** — `openalex`, `s2`, `arxiv`, `pubmed`.
+**`source`** — `openalex`, `s2`, `arxiv`, `pubmed`. `pubmed` is a value the
+schema accepts; no candidate carries it today, because
+[PubMed retrieval is not built](/architecture/overview/#sources-and-routing).
 
 **`work_type`** — `article`, `preprint`, `review`, `book-chapter`, `other`.
 

@@ -77,6 +77,20 @@ Bracketed steps are the agent's; the rest are CLI stages.
 There is no `screen` or `rerank` command in the CLI. Those stages belong to the
 agent, and the CLI has no faculty for performing them.
 
+In the supported installed path, the hosting agent supplies the judgement: it
+plans the queries, screens the candidates, writes any gap queries and reranks the
+shortlist. The installed package contains no model integration and makes no model
+calls.
+
+Separately, the repository contains an experimental, repo-only stateless driver
+that can produce the screening artifact outside that path. It is not installed —
+not in the wheel and not in the sdist — not the default, and not a supported user
+path; planning and reranking are untouched by it. Its controlled-replay evidence
+and the limits on that evidence are on
+[Measurements](/evaluation/measurements/#screening-in-controlled-replay), and the
+implementation is linked from
+[Contributing](/contributing/#the-experimental-drivers).
+
 Every stage is idempotent and re-runnable: change `queries.json` or pass a flag
 and re-run from the stage it affects.
 
@@ -97,6 +111,12 @@ outright.
 That PubMed row is worth reading twice. A routed source that is not built is
 recorded as unavailable in the manifest rather than dropped quietly — the same
 rule that governs every other kind of loss in the pipeline.
+
+`NCBI_API_KEY` does not change this. It raises the rate limit on NCBI
+E-utilities requests, and with no PubMed adapter the only such request the
+package makes is `doctor`'s endpoint probe. `doctor` reports the two facts
+separately: the probe's reachability under `providers`, and the missing adapter
+under `sources_not_built`.
 
 ## The gap round
 
@@ -136,23 +156,18 @@ per-stage allowance — **caps are totals, not allowances per stage.**
 
 ## Where the time goes
 
-Wall clock tracks the candidate pool, because screening is the long pole — it is
-the agent reading the pool.
+Screening dominates wall clock in the supported path. It is the hosting agent
+reading the pool, so it scales with the candidate pool while the deterministic
+stages stay roughly flat — with a warm cache the whole CLI chain is seconds.
 
-| Pool | Screening batches | Wall clock |
-|---|---|---|
-| ~675 candidates — `cs`, 3 sources at the default cap | ~27 | **37 min** |
-| ~250 candidates — 2 sources at the default cap | ~10 | **22 min** |
-| ~120 candidates — `--max-candidates 120` | 5 | **19 min** |
+The API bill barely moves with pool size. **Agent tokens are the real cost**, and
+they fall more slowly than the pool does, because reranking and fixed stage
+overhead dominate once screening is small. `--max-candidates` is the right dial
+for a runaway `cs` pool, not a way to make a scan cheap.
 
-OpenAlex bills roughly $0.008 either way; pool size costs almost nothing in API
-money. **Agent tokens are the real cost**, and they do not fall as fast as the
-pool does: the 120-candidate run still cost about $5.70 in frontier-model tokens
-and ran only three minutes quicker than the 250-candidate one, because reranking
-and fixed stage overhead dominate once screening is small.
-
-`--max-candidates` is the right dial for a runaway `cs` pool, not a way to make a
-scan cheap.
+The recorded figures — wall clock per pool size, token cost, and the runs they
+were measured on — are on
+[Measurements](/evaluation/measurements/#cost-and-wall-clock).
 
 ## Read on
 

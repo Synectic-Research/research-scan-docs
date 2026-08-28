@@ -25,6 +25,28 @@ transcript behind it.
 Content lives in `src/content/docs/**/*.mdx`. Navigation, site metadata and the
 sidebar are configured in `theme.config.json`.
 
+## Release pass
+
+The current product release is declared in exactly one place:
+`current_release` in [`scripts/release-facts.json`](scripts/release-facts.json).
+**Every release pass updates it**, alongside the main repo's own
+[`RELEASING.md`](https://github.com/Synectic-Research/research-scan/blob/main/RELEASING.md)
+checklist. That same file carries the manifest of pages whose transcripts must
+show the current release, and the allowlist of the older versions that stay
+because they are release history or measurement provenance.
+
+```bash
+python3 scripts/check-versions.py
+```
+
+Bump `current_release` and this fails until every listed transcript is recaptured
+against the new version. Recapture, never hand-edit: install the exact release
+into a clean environment and paste the output verbatim. The check also holds the
+narrower rules the site has been bitten by — the controlled-replay paragraph must
+appear complete wherever its figures do, timing and cost figures live only on the
+Measurements page, and the configuration pages must not describe `NCBI_API_KEY`
+as enabling PubMed retrieval.
+
 ## Domain
 
 The site is live at **https://researchscan.synectic.org**.

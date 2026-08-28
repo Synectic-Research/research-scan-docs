@@ -1,0 +1,134 @@
+{
+  "_comment": [
+    "The single docs-owned declaration of the current product release, plus the two",
+    "reviewable lists that scripts/check-versions.py enforces. Every release pass",
+    "updates current_release and re-reads current_transcripts; see README.md, 'Release",
+    "pass'. No script in this repo judges whether a sentence is 'qualified enough' or",
+    "whether a version has a 'good reason' — those judgements live here, in a file a",
+    "human reviews in the diff."
+  ],
+
+  "current_release": "0.6.1",
+
+  "_not_a_product_version": [
+    "A captured transcript also prints the environment it ran in. A semver is not the",
+    "product version when the text immediately before it on the line matches one of",
+    "these: a python label (python 3.13.13, \"python\": \"3.13.13\") or a hyphen, which is",
+    "how a platform token reads (macOS-14.2.1-arm64)."
+  ],
+  "not_a_product_version": ["(?i)python[\"\\s:]*$", "-$"],
+
+  "_current_transcripts": [
+    "Files that must carry at least one captured transcript stating current_release,",
+    "inside a fenced code block. A release pass that forgets to recapture one fails here."
+  ],
+  "current_transcripts": [
+    "getting-started/installation.mdx",
+    "getting-started/doctor.mdx",
+    "integrations/mcp-clients.mdx"
+  ],
+
+  "_version_allowlist": [
+    "Every product-version occurrence in prose (outside fenced code blocks). Anything",
+    "not listed here fails. tracks_current: true means the value must equal",
+    "current_release, so a release pass cannot leave it behind."
+  ],
+  "version_allowlist": [
+    {
+      "file": "reference/cli.mdx",
+      "value": "0.6.1",
+      "tracks_current": true,
+      "reason": "Provenance sentence for the captured transcripts on this page."
+    },
+    {
+      "file": "getting-started/doctor.mdx",
+      "value": "0.6.1",
+      "tracks_current": true,
+      "reason": "Release history: 0.6.1 split reachability from sources_not_built, and added that key. Two occurrences, both about that change."
+    },
+    {
+      "file": "getting-started/doctor.mdx",
+      "value": "0.5.2",
+      "tracks_current": false,
+      "reason": "Release history: the doctor --json interface became stable at 0.5.2."
+    },
+    {
+      "file": "getting-started/doctor.mdx",
+      "value": "0.5.0",
+      "tracks_current": false,
+      "reason": "Release history: 0.5.0 and 0.5.1 emitted the undocumented duplicate ok / tool_version keys."
+    },
+    {
+      "file": "getting-started/doctor.mdx",
+      "value": "0.5.1",
+      "tracks_current": false,
+      "reason": "Release history: paired with 0.5.0 above."
+    },
+    {
+      "file": "architecture/cli-engine.mdx",
+      "value": "0.6.0",
+      "tracks_current": false,
+      "reason": "Release history: the shortlist tie-break correctness fix landed in 0.6.0."
+    },
+    {
+      "file": "evaluation/measurements.mdx",
+      "value": "0.2.1",
+      "tracks_current": false,
+      "reason": "Release history: eval results have been keyed by profile from v0.2.1 onward."
+    }
+  ],
+
+  "_pinned_links": [
+    "Links that must stay pinned to an exact commit because they are evidence, not",
+    "navigation. Checked as exact substrings."
+  ],
+  "pinned_links": [
+    {
+      "file": "evaluation/measurements.mdx",
+      "must_contain": "blob/b79bdbac071994987b3baa4a914004767eb2a931/docs/measurements.md",
+      "reason": "Measurement provenance: the record as it stood at the released commit."
+    }
+  ],
+
+  "_replay_paragraph": [
+    "Wherever any of these figures appears, the complete paragraph must appear",
+    "verbatim. Publishing a fragment is what turns a one-stage replay into an",
+    "end-to-end claim."
+  ],
+  "replay_figures": ["979 seconds", "73 seconds", "$3.00", "$0.76"],
+  "replay_paragraph": "In controlled replay, stateless parallel screening reduced the screening stage from 979 seconds to 73 seconds and from $3.00 to $0.76. The implementation remains experimental while end-to-end golden non-inferiority is validated.",
+
+  "_timing_figures": [
+    "Measured wall-clock and cost figures live on the Measurements page only.",
+    "Captured transcripts are exempt: a fenced block is recorded output, not a claim.",
+    "Patterns are matched against prose."
+  ],
+  "timing_figure_pages": ["evaluation/measurements.mdx"],
+  "timing_figure_patterns": [
+    "\\b\\d{1,3}(?:,\\d{3})+ seconds\\b",
+    "\\b\\d+(?:\\.\\d+)? seconds per\\b",
+    "\\b\\d+ (?:min|mins|minutes)\\b",
+    "\\b(?:twenty|thirty|forty|fifty) minutes\\b",
+    "\\$\\d+(?:\\.\\d+)?\\b"
+  ],
+
+  "_pubmed": [
+    "The known misleading phrasing, and the statement that must be present instead.",
+    "Exact substrings, so the check has no opinion about wording beyond these."
+  ],
+  "pubmed_pages": [
+    "getting-started/configuration.mdx",
+    "reference/configuration.mdx"
+  ],
+  "pubmed_forbidden": [
+    "PubMed only: 10 req/s instead of 3",
+    "raises a rate limit or adds a\nsource"
+  ],
+  "pubmed_required_any": [
+    "not built",
+    "no retrieval adapter",
+    "does not add a source",
+    "Adds no papers",
+    "adds no papers"
+  ]
+}

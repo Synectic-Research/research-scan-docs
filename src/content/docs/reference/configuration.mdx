@@ -61,7 +61,15 @@ the HTTP cache.
 |---|---|---|
 | `OPENALEX_API_KEY` | **Yes** | OpenAlex, the primary source. `doctor` exits 3 without it. |
 | `S2_API_KEY` | No | Semantic Scholar. Search and citation-graph expansion work without it, throttled to roughly a third of the rate; `doctor` warns. |
-| `NCBI_API_KEY` | No | PubMed only: 10 req/s instead of 3. |
+| `NCBI_API_KEY` | No | NCBI E-utilities requests: 10 req/s instead of 3. Adds no papers — see below. |
+
+**`NCBI_API_KEY` affects a rate limit, not retrieval.** PubMed is routed for
+`biomed` and [not built](/architecture/overview/#sources-and-routing): there is no
+retrieval adapter, so no scan draws candidates from it and `manifest.json` records
+it as unavailable. The key is attached to NCBI E-utilities requests and raises
+their limit from 3 req/s to 10 req/s; the only such request the package makes
+today is `doctor`'s endpoint probe. Set it or leave it unset — the papers a scan
+finds are the same either way.
 
 ## Public settings
 

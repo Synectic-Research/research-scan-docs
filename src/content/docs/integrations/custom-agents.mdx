@@ -130,8 +130,9 @@ The two rules it opens with are the ones to carry into any implementation:
 ## Worth knowing before you build
 
 **Screening dominates.** It is the agent reading the pool, and it is most of both
-the wall clock and the token cost. Batch it, and expect roughly 3.8 seconds per
-candidate at frontier-model speeds.
+the wall clock and the token cost. Batch it. The recorded per-pool figures to size
+your harness against are on
+[Measurements](/evaluation/measurements/#cost-and-wall-clock).
 
 **Do not show the screener citation counts or venues.** The rubric withholds them
 deliberately; a harness that helpfully adds them changes what the scale means.
