@@ -55,9 +55,10 @@ presentation differs.
 ## The summary
 
 ```
-Research Scan 0.6.0
+Research Scan 0.6.1
 ✓ configuration
-✓ OpenAlex   ✓ Semantic Scholar   ✓ Crossref   ✓ arXiv   ✓ PubMed
+✓ OpenAlex   ✓ Semantic Scholar   ✓ Crossref   ✓ arXiv   ○ PubMed
+  PubMed: endpoint reachable; source routed for biomed but not built
 ✓ writable run store
 Ready.
 ```
@@ -65,10 +66,12 @@ Ready.
 Progress lines go to stderr; only this block is stdout. `--quiet` silences the
 stderr log.
 
-One row to read carefully: the PubMed check probes that the E-utilities endpoint
-answers, and a tick there means exactly that. The PubMed *source* is routed for
-`biomed` but [not built yet](/architecture/overview/#sources-and-routing) — a green
-PubMed row is not a claim that a scan retrieves from it.
+One row to read carefully. `○` marks a source that is routed but has no retrieval
+adapter: the PubMed check probes that the E-utilities endpoint answers, and it does,
+but the PubMed *source* is [not built yet](/architecture/overview/#sources-and-routing).
+Those are two different questions, and from 0.6.1 the JSON answers them separately —
+`providers` reports what each probe found, and `sources_not_built` lists what cannot
+retrieve regardless of whether its endpoint was reachable.
 
 **Exit 0 means go. Exit 3 means a mandatory check failed** — read the check name
 and fix that, rather than working around it.
@@ -78,7 +81,7 @@ and fix that, rather than working around it.
 `--verbose` gives every check with its timing, plus the paths in use.
 
 ```
-research-scan doctor — v0.6.0, python 3.13.13
+research-scan doctor — v0.6.1, python 3.13.13
 
 ok     python                 3.13.13
 ok   ! config path            ~/.config/research-scan
@@ -94,6 +97,7 @@ ok   ! s2 references          1 reference(s) — graph expansion available  [675
 ok     crossref lookup        10.1038/s41586-021-03819-2 resolves  [368 ms]
 ok     arxiv query            parsed a candidate for 'electron' (arXiv:2608.20339)  [81 ms]
 ok     pubmed esearch         esearch returned pmid 42625563  [529 ms]
+○      PubMed                 endpoint reachable; source routed for biomed but not built
 
 paths:
   config_env: ~/.config/research-scan/.env
@@ -120,7 +124,7 @@ research-scan doctor --json
 
 ```json
 {
-  "version": "0.6.0",
+  "version": "0.6.1",
   "ready": true,
   "providers": {
     "openalex": "ok",
@@ -129,6 +133,7 @@ research-scan doctor --json
     "arxiv": "ok",
     "pubmed": "ok"
   },
+  "sources_not_built": ["pubmed"],
   "config": "ok",
   "run_store": "ok",
   "paths": {
@@ -152,7 +157,8 @@ Abridged: the real output carries every check in `checks`, plus a `keys` object
 with each credential's presence, masked value and origin.
 
 From 0.5.2 this is a stable interface: keys are added, never removed or
-repurposed. Read `ready` for the verdict and `version` for the tool version. The
+repurposed. `sources_not_built` is the 0.6.1 addition, and it is additive in that
+exact sense — `providers` keeps every key, value and type it had, `pubmed` included. Read `ready` for the verdict and `version` for the tool version. The
 `ok` and `tool_version` keys emitted by 0.5.0 and 0.5.1 were undocumented
 duplicates of those two and are gone.
 
