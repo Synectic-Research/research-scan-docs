@@ -6,7 +6,7 @@
     "dark": "/logo.svg",
     "variant": "mark"
   },
-  "description": "Research Scan finds and verifies the 5–10 recent papers that matter most for a research question, project, or decision.",
+  "description": "Research Scan finds recent scientific papers that matter most for your research question, project, or decision.",
   "favicon": "/favicon.svg",
   "docsBase": "/",
   "appearance": {
