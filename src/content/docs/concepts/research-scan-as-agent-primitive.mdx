@@ -137,8 +137,9 @@ scan still succeeds and writes its run directory — you just do not get the
 structured result. Phrasing it as an instruction makes the session invoke the
 skill, receive the fork's report, and emit the `ScanSummary` itself.
 
-**`--allowedTools` must carry `Glob`.** It is not optional: the skill globs
-`screen-batches/` to find the batches to score.
+**`--allowedTools` must carry `Bash(research-scan *)`, `Read`, `Write`, `Edit`,
+`Glob` and `Grep`** — the skill's own `allowed-tools` line, minus the four `scan_*`
+MCP tools a headless run does not use.
 
 ## The property that makes it composable
 

@@ -73,8 +73,9 @@ which caveats. A number without its context is not publishable here.
 ## Boundary
 
 MCP is **local stdio via `uvx`**. This site documents no hosted endpoint, no
-remote transport, no bearer token, no team deployment. That surface was deliberately
-dropped from the public project in v0.5.0 and does not exist here.
+remote transport, no bearer token, no team deployment. The HTTP transport
+(`research-scan mcp --http`) exists in the package, but it is an operator surface:
+the main repo's `SECURITY.md` and `RELEASING.md` document it, and this site does not.
 
 ## Diagrams
 

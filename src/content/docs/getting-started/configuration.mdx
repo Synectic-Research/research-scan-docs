@@ -95,6 +95,11 @@ stdin is not a terminal, so there is nothing to prompt. Write ~/.config/research
 Then run: research-scan doctor
 ```
 
+**In a sandbox.** If the config directory is read-only — an agent sandbox such as
+Codex's `workspace-write` — `configure` exits 1 with one sentence saying where it
+needs write access, before asking for any key. Run it in a plain terminal; a scan
+itself only reads the directory, so [`doctor`](/getting-started/doctor/) passes there.
+
 ## Where configuration lives
 
 `configure` writes `~/.config/research-scan/.env` with mode `0600` inside a `0700`

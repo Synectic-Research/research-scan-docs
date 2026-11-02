@@ -80,7 +80,9 @@ Nothing extra to install — the server ships with the package.
 | Cursor | `.cursor/mcp.json` |
 
 More detail, including the skill-only routes, is in
-[Integrations](/integrations/claude-code/).
+[Integrations](/integrations/claude-code/). Codex, Cursor and other Agent Skills hosts
+read the same skill folder — see
+[Custom agents](/integrations/custom-agents/#if-your-agent-is-a-skill-host).
 
 ## 2. Ask for a scan
 
@@ -104,7 +106,7 @@ The full argument list:
 /research-scan <brief.md | "question"> [--profile quick|standard|deep] [--top N]
                                        [--foundational N] [--from YYYY-MM] [--to YYYY-MM]
                                        [--slug name] [--domain behavioral|cs|biomed|general]
-                                       [--max-candidates N] [--per-query N]
+                                       [--max-candidates N] [--per-query N] [--gap-round]
 ```
 
 Start with `--profile quick` for a first run. It caps the pool at 250 candidates

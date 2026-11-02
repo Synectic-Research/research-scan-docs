@@ -66,6 +66,14 @@ The skill declares which tools it needs — `Bash(research-scan *)`, `Read`,
 context, which has consequences for
 [headless invocation](/concepts/research-scan-as-agent-primitive/#running-it-unattended).
 
+`SKILL.md` follows the open [Agent Skills](https://agentskills.io/) format: the
+frontmatter carries `license` and `compatibility`, bundled files are linked by paths
+relative to the skill, and the brief is read from the invoking request, so Codex,
+Cursor and Copilot read the same folder Claude Code does. The Claude Code keys
+(`context: fork`, `agent`, `background`, `argument-hint`) stay top-level, and
+`allowed-tools` is the spec's own experimental field; a full Codex scan ran with all
+of them in place.
+
 ## Planning
 
 The plan rubric turns a brief into `queries.json`: 6–8 queries and 3–6

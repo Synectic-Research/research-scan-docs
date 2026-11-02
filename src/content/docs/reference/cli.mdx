@@ -40,7 +40,7 @@ head:
   # <<< end generated
 ---
 
-Every transcript below was captured from `research-scan` 0.6.1, installed from
+Every transcript below was captured from `research-scan` 0.6.3, installed from
 PyPI at that exact version, at a terminal width of 100 columns. Help boxes wrap
 to the terminal width; yours may wrap differently.
 
@@ -103,6 +103,9 @@ judgement between stages — see [Installation](/getting-started/installation/#t
 │ --help                    Show this message and exit.                                            │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
+
+Exits 2 when stdin is not a terminal, and 1 when the config directory is not writable —
+checked before the first prompt. Otherwise it ends by running `doctor` and exits with its code.
 
 ### `doctor`
 
@@ -395,5 +398,6 @@ The golden set lives in the main repo under `eval/golden/`. See
 | Code | Meaning |
 |---|---|
 | `0` | Success. |
+| `1` | A runtime failure: a directory could not be written, every routed source failed in `retrieve`, or `expand` found nothing to grow from. |
 | `2` | A validation or usage failure. Every offending path is listed, not just the first. |
 | `3` | A mandatory readiness check failed. |

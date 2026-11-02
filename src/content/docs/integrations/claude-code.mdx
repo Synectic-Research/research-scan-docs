@@ -103,8 +103,8 @@ Bash(research-scan *), Read, Write, Edit, Glob, Grep,
 scan_start, scan_continue, scan_verify, scan_result
 ```
 
-`Glob` is not optional — the skill globs `screen-batches/` to find the batches to
-score.
+Pass the first line when you restrict tools for a headless run; the `scan_*` tools are
+only needed when a remote MCP server drives the scan.
 
 The skill also runs in a forked context. That is invisible in interactive use, but
 it changes how headless invocation has to be phrased; see

@@ -44,7 +44,36 @@ Nothing about Research Scan assumes Claude Code. The interface is a run director
 of JSON and a CLI with stable exit codes, so any harness that can run a subprocess
 and read a file can drive the pipeline — including fifty lines of Python.
 
-There are two ways in.
+## If your agent is a skill host
+
+`SKILL.md` follows the open [Agent Skills](https://agentskills.io/) format, so the
+folder that serves Claude Code serves Codex, Cursor, Copilot and any other host that
+reads it — nothing to build. Codex looks in `~/.agents/skills`; from a clone of the
+repository:
+
+```bash
+mkdir -p ~/.agents/skills && ln -s "$PWD/skills/research-scan" ~/.agents/skills/research-scan
+```
+
+The CLI needs the network, which Codex's default sandbox blocks. Run
+`research-scan doctor` once outside Codex (it creates the cache and config
+directories), then give the session network access and a writable cache. Both apply
+to the whole session, not only to `research-scan`. A full scan is a long,
+unattended task, so run it with `codex exec` and say that it should finish:
+
+```bash
+codex exec --sandbox workspace-write -c sandbox_workspace_write.network_access=true \
+  --add-dir ~/.cache/research-scan \
+  'Use the research-scan skill on brief.md with --profile quick, and run every step through the report.'
+```
+
+Outside a git repository, `codex exec` also needs `--skip-git-repo-check`.
+
+That sandbox can read `~/.config/research-scan` but not write it. A scan only reads
+credentials there, so `doctor` passes a read-only config directory and says so under `--verbose`; only
+`configure` writes there, so run it in a plain terminal.
+
+If your agent is not a skill host, there are two ways in.
 
 ## Option 1 — speak MCP
 
@@ -97,7 +126,7 @@ files.
 `schema.py` in the package is the source of truth, and it will print itself:
 
 ```bash
-research-scan schema --name Queries        # one model, as JSON Schema
+research-scan schema --name QueryPlan      # one model, as JSON Schema
 research-scan schema --md                  # every model, as Markdown
 ```
 

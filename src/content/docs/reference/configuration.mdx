@@ -88,8 +88,8 @@ costs nothing and multiplies your throughput.
 
 | Path | What it is |
 |---|---|
-| `~/.config/research-scan/.env` | The credential store. Mode `0600`, in a `0700` directory. |
-| `~/.cache/research-scan/http.sqlite` | The 7-day HTTP cache. |
+| `~/.config/research-scan/.env` | The credential store. Mode `0600`, in a `0700` directory. Read by every scan, written only by `configure`, so the directory may be read-only. |
+| `~/.cache/research-scan/http.sqlite` | The 7-day HTTP cache. Must be writable. |
 | `./.env` | A repo-local override, lowest precedence. |
 | `research/scans/<YYYY-MM-DD>-<slug>/` | Run directories, relative to the working directory. |
 | `~/.local/share/research-scan-mcp/runs/<scan_id>/` | Run directories under the MCP adapter. |

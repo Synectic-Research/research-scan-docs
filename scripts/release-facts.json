@@ -8,7 +8,7 @@
     "human reviews in the diff."
   ],
 
-  "current_release": "0.6.1",
+  "current_release": "0.6.3",
 
   "_not_a_product_version": [
     "A captured transcript also prints the environment it ran in. A semver is not the",
@@ -36,14 +36,14 @@
   "version_allowlist": [
     {
       "file": "reference/cli.mdx",
-      "value": "0.6.1",
+      "value": "0.6.3",
       "tracks_current": true,
       "reason": "Provenance sentence for the captured transcripts on this page."
     },
     {
       "file": "getting-started/doctor.mdx",
       "value": "0.6.1",
-      "tracks_current": true,
+      "tracks_current": false,
       "reason": "Release history: 0.6.1 split reachability from sources_not_built, and added that key. Two occurrences, both about that change."
     },
     {
