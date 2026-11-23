@@ -19,6 +19,9 @@
     "tailwindcss": "latest",
     "typescript": "^6.0.3"
   },
+  "engines": {
+    "node": "26.x"
+  },
   "private": true,
   "description": "Documentation site for Research Scan.",
   "license": "Apache-2.0"
